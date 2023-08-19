@@ -24,14 +24,14 @@ path2 = os.path.isfile(data_file)
 if path2==False:
     with open(data_file, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Date", "TIME", "Rupees", "Total", "foodtotal","colddrinktotal", "bakchoditotal", "groceriestotal", "savingstotal", "otherstotal" ]) 
+        writer.writerow(["Date", "TIME", "Rupees", "Total", "foodtotal","colddrinktotal", "Entertainmenttotal", "groceriestotal", "savingstotal", "otherstotal" ]) 
 
 df2 = pd.read_csv(data_file)
 
 
 
 
-expenses = ["Food", "Cold-Drink", "bakchodi", "groceries", "savings", "others"]
+expenses = ["Food", "Cold-Drink", "Entertainment", "groceries", "savings", "others"]
 location = ["College", "Home"]
 currency = "INR"
 page_title = "Expense Tracker"
@@ -45,7 +45,7 @@ layout = "centered"
 Total = 0
 foodtotal = 0
 colddrinktotal = 0
-bakchoditotal = 0
+Entertainmenttotal = 0
 groceriestotal = 0
 savingstotal = 0
 otherstotal = 0
@@ -90,10 +90,10 @@ if menu == "Data Entry":
             new_data = {"Date":date, "Spent on":spenton, "Amount":amount, "location":loc, "comment":comm, "time":time}
             amount = int(amount)
             # Total+=amount
-            # "Food", "Cold-Drink", "bakchodi", "groceries", "savings", "others"
+            # "Food", "Cold-Drink", "Entertainment", "groceries", "savings", "others"
             foodtotal = 0
             colddrinktotal = 0
-            bakchoditotal = 0
+            Entertainmenttotal = 0
             groceriestotal = 0
             savingstotal = 0
             otherstotal = 0
@@ -101,8 +101,8 @@ if menu == "Data Entry":
                 foodtotal = df2['foodtotal'].sum() + amount
             elif spenton=="Cold-Drink":
                 colddrinktotal = df2['colddrinktotal'].sum() + amount
-            elif spenton=="bakchodi":
-                bakchoditotal = df2['bakchoditotal'].sum() + amount
+            elif spenton=="Entertainment":
+                Entertainmenttotal = df2['Entertainmenttotal'].sum() + amount
             elif spenton=="groceries":
                 groceriestotal = df2['groceriestotal'].sum() + amount
             elif spenton=="savings":
@@ -112,7 +112,7 @@ if menu == "Data Entry":
 
             Total = df2['Rupees'].sum() + amount
             # print(df2['Total'].sum())
-            addeddata = {"Date":date, "TIME":time, "Rupees":amount, "Total":Total, "foodtotal":foodtotal, "colddrinktotal":colddrinktotal, "bakchoditotal":bakchoditotal, "groceriestotal":groceriestotal, "savingstotal":savingstotal, "otherstotal":savingstotal}
+            addeddata = {"Date":date, "TIME":time, "Rupees":amount, "Total":Total, "foodtotal":foodtotal, "colddrinktotal":colddrinktotal, "Entertainmenttotal":Entertainmenttotal, "groceriestotal":groceriestotal, "savingstotal":savingstotal, "otherstotal":savingstotal}
             df2 = df2._append(addeddata, ignore_index = True)
             df2.to_csv(f"{calendar.month_name[datetime.today().month]}_data.csv", index=False)
             df = df._append(new_data, ignore_index = True)
